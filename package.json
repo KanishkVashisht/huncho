@@ -2,11 +2,13 @@
   "name": "huncho",
   "version": "1.0.0",
   "description": "Huncho is a quick way for people to build smoke testing pages and gather basic analytics alongside early subscribers.",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/KanishkVashisht/huncho.git",
   "author": "KanishkVashisht <kanishk.vashisht@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "firebase-admin": "^5.12.1"
   }
 }
