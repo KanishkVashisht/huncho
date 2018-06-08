@@ -30,6 +30,7 @@ app.use((req,res,next) =>{
 })
 
 //handling read requests
+
 app.get('/:appid',(req,res)=>{
   let reference = db.ref("/production/"+req.params.appid);
   reference.on("value",   function(snapshot){
@@ -57,7 +58,6 @@ app.get('/:appid',(req,res)=>{
     resolver(res,returnable)
   })
 })
-
 app.get('/:appid/analytics/:secret',(req,res)=>{
     let reference = db.ref("/production/"+req.params.appid);
     reference.on("value", function(snapshot){
@@ -81,7 +81,30 @@ app.get('/:appid/analytics/:secret',(req,res)=>{
           }
     });
 })
-
+app.get('/exists/:appid'){
+    let reference = db.ref("/production/"+req.params.appid);
+    reference.on("value", function(snapshot){
+          let returnable;
+          if(snapshot.val()){
+              returnable= {
+                    "exists":"true",
+                    "success":"true"
+              }
+          } else {
+              returnable= {
+                    "exists":"false",
+                    "success":"true"
+              }
+          }
+          resolver(res,returnable);
+    }, function(error){
+          returnable= {
+                "error":error,
+                "success":"false"
+          }
+          resolver(res,returnable);
+    })
+}
 //handling write requests
 
 /*
