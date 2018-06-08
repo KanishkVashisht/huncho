@@ -25,9 +25,18 @@ app.use((req,res,next) =>{
   next();
 })
 
-//handling post requests
+//handling read requests
 app.get('/:appid',(req,res)=>{
-    console.log(req.params.appid);
+    console.log("Rendering the app page for app = ",req.params.appid);
+})
+
+app.get('/:appid/analytics/:secret',(req,res)=>{
+   console.log("Rendering the app",req.params.appid," with the secret ",req.params.secret);
+})
+
+//handling write requests
+app.post('/write',(req,res)=>{
+  console.log(...req)
 })
 //app.post('/write',write)
 app.listen(port,()=>console.log("Listening on port ",port,"..."))
