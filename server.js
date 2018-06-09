@@ -37,12 +37,13 @@ app.get('/:appid',(req,res)=>{
     let returnable;
     if(snapshot.val()){
             let {heading,subheading,name} = {...snapshot.val()};
-            returnable = {
+            res.render('template',smokescreen={
+              "name":name,
               "heading":heading,
               "subheading":subheading,
-              "name":name,
-              "success":"true"
-            }
+              "callToAction":"Subscribe"
+            });
+            return;
     } else{
             returnable = {
               "error":"No such project found",
@@ -81,7 +82,7 @@ app.get('/:appid/analytics/:secret',(req,res)=>{
           }
     });
 })
-app.get('/exists/:appid'){
+app.get('/exists/:appid',()=>{
     let reference = db.ref("/production/"+req.params.appid);
     reference.on("value", function(snapshot){
           let returnable;
@@ -104,7 +105,7 @@ app.get('/exists/:appid'){
           }
           resolver(res,returnable);
     })
-}
+})
 //handling write requests
 
 /*
